@@ -7,6 +7,7 @@ const semver = require("semver");
 
 describe("Client", function () {
   beforeEach(function () {
+    this.enableTimeouts(false);
     tinify.Client.RETRY_DELAY = 10;
     this.subject = new tinify.Client("key");
   });
