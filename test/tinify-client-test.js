@@ -19,14 +19,16 @@ describe("Client", function () {
     describe("with bad credentials", function () {
       let error;
 
-      beforeEach(function () {
+      beforeEach(async function () {
         const request = nock("https://api.tinify.com")
           .get("/")
           .reply(401, '{"error":"Unauthorized","message":"Oops!"}');
-        let temp = this.subject.request("get", "/").catch(function (err) {
+
+        let temp = await this.subject.request("get", "/").catch(function (err) {
+          // console.log("!!", err);
           error = err;
         });
-        console.log(temp);
+        // console.log(temp);
         return temp;
       });
 
