@@ -14,4 +14,32 @@ describe("Client", function () {
   afterEach(function () {
     nock.cleanAll();
   });
+
+  describe("request", function () {
+    describe("with bad credentials", function () {
+      let error;
+
+      beforeEach(function () {
+        const request = nock("https://api.tinify.com")
+          .get("/")
+          .reply(401, '{"error":"Unauthorized","message":"Oops!"}');
+
+        return this.subject.request("get", "/").catch(function (err) {
+          error = err;
+        });
+      });
+
+      it("should pass account error", function () {
+        assert.instanceOf(error, tinify.AccountError);
+      });
+
+      it("should pass error with message", function () {
+        assert.equal(error.message, "Oops! (HTTP 401/Unauthorized)");
+      });
+
+      it("should pass error with stack", function () {
+        assert.match(error.stack, /at( new)? AccountError/);
+      });
+    });
+  });
 });
