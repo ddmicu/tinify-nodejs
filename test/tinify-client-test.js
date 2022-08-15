@@ -22,13 +22,13 @@ describe("Client", function () {
       beforeEach(async function () {
         const request = nock("https://api.tinify.com")
           .get("/")
-          .reply(401, '{"error":"Unauthorized","message":"Oops!"}');
+          .reply(401, { error: "Unauthorized", message: "Oops!" });
 
         let temp = await this.subject.request("get", "/").catch(function (err) {
           // console.log("!!", err);
           error = err;
         });
-        // console.log(temp);
+        console.log("temp", temp);
         return temp;
       });
 
