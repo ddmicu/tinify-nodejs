@@ -31,311 +31,313 @@ describe("Source", function () {
       });
     });
 
-    // describe("fromBuffer", function () {
-    //   it("should pass account error", function () {
-    //     return tinify.Source.fromBuffer("png file")
-    //       .toBuffer()
-    //       .catch(function (err) {
-    //         assert.instanceOf(err, tinify.AccountError);
-    //       });
-    //   });
-    // });
+    describe("fromBuffer", function () {
+      it("should pass account error", function () {
+        return tinify.Source.fromBuffer("png file")
+          .toBuffer()
+          .catch(function (err) {
+            assert.instanceOf(err, tinify.AccountError);
+          });
+      });
+    });
 
-    // describe("fromUrl", function() {
-    //   it("should pass account error", function() {
-    //     return tinify.Source.fromUrl("http://example.com/test.jpg").toBuffer().catch(function(err) {
-    //       assert.instanceOf(err, tinify.AccountError)
-    //     })
-    //   })
-    // })
+    describe("fromUrl", function () {
+      it("should pass account error", function () {
+        return tinify.Source.fromUrl("http://example.com/test.jpg")
+          .toBuffer()
+          .catch(function (err) {
+            assert.instanceOf(err, tinify.AccountError);
+          });
+      });
+    });
   });
 
-  // describe("with valid api key", function () {
-  //   before(function () {
-  //     tinify.key = "valid";
-  //   });
+  describe("with valid api key", function () {
+    before(function () {
+      tinify.key = "valid";
+    });
 
-  //   describe("fromFile", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
-  //     });
+    describe("fromFile", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+      });
 
-  //     it("should return source", function () {
-  //       const source = tinify.Source.fromFile(dummyFile);
-  //       assert.instanceOf(source, tinify.Source);
-  //     });
+      it("should return source", function () {
+        const source = tinify.Source.fromFile(dummyFile);
+        assert.instanceOf(source, tinify.Source);
+      });
 
-  //     it("should return source with data", function () {
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location")
-  //         .reply(200, "compressed file");
+      it("should return source with data", function () {
+        nock("https://api.tinify.com")
+          .get("/some/location")
+          .reply(200, "compressed file");
 
-  //       const data = tinify.Source.fromFile(dummyFile).toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("compressed file", data);
-  //       });
-  //     });
-  //   });
+        const data = tinify.Source.fromFile(dummyFile).toBuffer();
+        return data.then(function (data) {
+          assert.equal("compressed file", data);
+        });
+      });
+    });
 
-  //   describe("fromBuffer", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
-  //     });
+    describe("fromBuffer", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+      });
 
-  //     it("should return source", function () {
-  //       const source = tinify.Source.fromBuffer("png file");
-  //       assert.instanceOf(source, tinify.Source);
-  //     });
+      it("should return source", function () {
+        const source = tinify.Source.fromBuffer("png file");
+        assert.instanceOf(source, tinify.Source);
+      });
 
-  //     it("should return source with data", function () {
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location")
-  //         .reply(200, "compressed file");
+      it("should return source with data", function () {
+        nock("https://api.tinify.com")
+          .get("/some/location")
+          .reply(200, "compressed file");
 
-  //       const data = tinify.Source.fromBuffer("png file").toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("compressed file", data);
-  //       });
-  //     });
-  //   });
+        const data = tinify.Source.fromBuffer("png file").toBuffer();
+        return data.then(function (data) {
+          assert.equal("compressed file", data);
+        });
+      });
+    });
 
-  //   describe("fromUrl", function () {
-  //     it("should return source", function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink", '{"source":{"url":"http://example.com/test.jpg"}}')
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("fromUrl", function () {
+      it("should return source", function () {
+        nock("https://api.tinify.com")
+          .post("/shrink", '{"source":{"url":"http://example.com/test.jpg"}}')
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       const source = tinify.Source.fromUrl("http://example.com/test.jpg");
-  //       assert.instanceOf(source, tinify.Source);
-  //     });
+        const source = tinify.Source.fromUrl("http://example.com/test.jpg");
+        assert.instanceOf(source, tinify.Source);
+      });
 
-  //     it("should return source with data", function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink", '{"source":{"url":"http://example.com/test.jpg"}}')
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+      it("should return source with data", function () {
+        nock("https://api.tinify.com")
+          .post("/shrink", '{"source":{"url":"http://example.com/test.jpg"}}')
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location")
-  //         .reply(200, "compressed file");
+        nock("https://api.tinify.com")
+          .get("/some/location")
+          .reply(200, "compressed file");
 
-  //       const data = tinify.Source.fromUrl(
-  //         "http://example.com/test.jpg"
-  //       ).toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("compressed file", data);
-  //       });
-  //     });
+        const data = tinify.Source.fromUrl(
+          "http://example.com/test.jpg"
+        ).toBuffer();
+        return data.then(function (data) {
+          assert.equal("compressed file", data);
+        });
+      });
 
-  //     it("should pass error if request is not ok", function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink", '{"source":{"url":"file://wrong"}}')
-  //         .reply(
-  //           400,
-  //           '{"error":"Source not found","message":"Cannot parse URL"}'
-  //         );
+      it("should pass error if request is not ok", function () {
+        nock("https://api.tinify.com")
+          .post("/shrink", '{"source":{"url":"file://wrong"}}')
+          .reply(
+            400,
+            '{"error":"Source not found","message":"Cannot parse URL"}'
+          );
 
-  //       return tinify.Source.fromUrl("file://wrong")
-  //         .toBuffer()
-  //         .catch(function (err) {
-  //           assert.instanceOf(err, tinify.ClientError);
-  //         });
-  //     });
-  //   });
+        return tinify.Source.fromUrl("file://wrong")
+          .toBuffer()
+          .catch(function (err) {
+            assert.instanceOf(err, tinify.ClientError);
+          });
+      });
+    });
 
-  //   describe("result", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("result", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location")
-  //         .reply(200, "compressed file");
-  //     });
+        nock("https://api.tinify.com")
+          .get("/some/location")
+          .reply(200, "compressed file");
+      });
 
-  //     it("should return result", function () {
-  //       const result = tinify.Source.fromBuffer("png file").result();
-  //       assert.instanceOf(result, tinify.Result);
-  //     });
-  //   });
+      it("should return result", function () {
+        const result = tinify.Source.fromBuffer("png file").result();
+        assert.instanceOf(result, tinify.Result);
+      });
+    });
 
-  //   describe("preserve", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("preserve", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location", '{"preserve":["copyright","location"]}')
-  //         .reply(200, "copyrighted file");
-  //     });
+        nock("https://api.tinify.com")
+          .get("/some/location", '{"preserve":["copyright","location"]}')
+          .reply(200, "copyrighted file");
+      });
 
-  //     it("should return source", function () {
-  //       const source = tinify.Source.fromBuffer("png file").preserve(
-  //         "copyright",
-  //         "location"
-  //       );
-  //       assert.instanceOf(source, tinify.Source);
-  //     });
+      it("should return source", function () {
+        const source = tinify.Source.fromBuffer("png file").preserve(
+          "copyright",
+          "location"
+        );
+        assert.instanceOf(source, tinify.Source);
+      });
 
-  //     it("should return source with data", function () {
-  //       const data = tinify.Source.fromBuffer("png file")
-  //         .preserve("copyright", "location")
-  //         .toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("copyrighted file", data);
-  //       });
-  //     });
+      it("should return source with data", function () {
+        const data = tinify.Source.fromBuffer("png file")
+          .preserve("copyright", "location")
+          .toBuffer();
+        return data.then(function (data) {
+          assert.equal("copyrighted file", data);
+        });
+      });
 
-  //     it("should return source with data for array", function () {
-  //       const data = tinify.Source.fromBuffer("png file")
-  //         .preserve(["copyright", "location"])
-  //         .toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("copyrighted file", data);
-  //       });
-  //     });
+      it("should return source with data for array", function () {
+        const data = tinify.Source.fromBuffer("png file")
+          .preserve(["copyright", "location"])
+          .toBuffer();
+        return data.then(function (data) {
+          assert.equal("copyrighted file", data);
+        });
+      });
 
-  //     it("should include other options if set", function () {
-  //       nock("https://api.tinify.com")
-  //         .get(
-  //           "/some/location",
-  //           '{"preserve":["copyright","location"],"resize":{"width":400}}'
-  //         )
-  //         .reply(200, "copyrighted resized file");
+      it("should include other options if set", function () {
+        nock("https://api.tinify.com")
+          .get(
+            "/some/location",
+            '{"preserve":["copyright","location"],"resize":{"width":400}}'
+          )
+          .reply(200, "copyrighted resized file");
 
-  //       const data = tinify.Source.fromBuffer("png file")
-  //         .resize({ width: 400 })
-  //         .preserve("copyright", "location")
-  //         .toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("copyrighted resized file", data);
-  //       });
-  //     });
-  //   });
+        const data = tinify.Source.fromBuffer("png file")
+          .resize({ width: 400 })
+          .preserve("copyright", "location")
+          .toBuffer();
+        return data.then(function (data) {
+          assert.equal("copyrighted resized file", data);
+        });
+      });
+    });
 
-  //   describe("resize", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("resize", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location", '{"resize":{"width":400}}')
-  //         .reply(200, "small file");
-  //     });
+        nock("https://api.tinify.com")
+          .get("/some/location", '{"resize":{"width":400}}')
+          .reply(200, "small file");
+      });
 
-  //     it("should return source", function () {
-  //       const source = tinify.Source.fromBuffer("png file").resize({
-  //         width: 400,
-  //       });
-  //       assert.instanceOf(source, tinify.Source);
-  //     });
+      it("should return source", function () {
+        const source = tinify.Source.fromBuffer("png file").resize({
+          width: 400,
+        });
+        assert.instanceOf(source, tinify.Source);
+      });
 
-  //     it("should return source with data", function () {
-  //       const data = tinify.Source.fromBuffer("png file")
-  //         .resize({ width: 400 })
-  //         .toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("small file", data);
-  //       });
-  //     });
-  //   });
+      it("should return source with data", function () {
+        const data = tinify.Source.fromBuffer("png file")
+          .resize({ width: 400 })
+          .toBuffer();
+        return data.then(function (data) {
+          assert.equal("small file", data);
+        });
+      });
+    });
 
-  //   describe("store", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("store", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .post("/some/location", '{"store":{"service":"s3"}}')
-  //         .reply(
-  //           200,
-  //           {},
-  //           { location: "https://bucket.s3.amazonaws.com/example" }
-  //         );
-  //     });
+        nock("https://api.tinify.com")
+          .post("/some/location", '{"store":{"service":"s3"}}')
+          .reply(
+            200,
+            {},
+            { location: "https://bucket.s3.amazonaws.com/example" }
+          );
+      });
 
-  //     it("should return result meta", function () {
-  //       const result = tinify.Source.fromBuffer("png file").store({
-  //         service: "s3",
-  //       });
-  //       assert.instanceOf(result, tinify.ResultMeta);
-  //     });
+      it("should return result meta", function () {
+        const result = tinify.Source.fromBuffer("png file").store({
+          service: "s3",
+        });
+        assert.instanceOf(result, tinify.ResultMeta);
+      });
 
-  //     it("should return result meta with location", function () {
-  //       const location = tinify.Source.fromBuffer("png file")
-  //         .store({ service: "s3" })
-  //         .location();
-  //       return location.then(function (location) {
-  //         assert.equal("https://bucket.s3.amazonaws.com/example", location);
-  //       });
-  //     });
+      it("should return result meta with location", function () {
+        const location = tinify.Source.fromBuffer("png file")
+          .store({ service: "s3" })
+          .location();
+        return location.then(function (location) {
+          assert.equal("https://bucket.s3.amazonaws.com/example", location);
+        });
+      });
 
-  //     it("should include other options if set", function () {
-  //       nock("https://api.tinify.com")
-  //         .post(
-  //           "/some/location",
-  //           '{"store":{"service":"s3"},"resize":{"width":400}}'
-  //         )
-  //         .reply(
-  //           200,
-  //           {},
-  //           { location: "https://bucket.s3.amazonaws.com/resized" }
-  //         );
+      it("should include other options if set", function () {
+        nock("https://api.tinify.com")
+          .post(
+            "/some/location",
+            '{"store":{"service":"s3"},"resize":{"width":400}}'
+          )
+          .reply(
+            200,
+            {},
+            { location: "https://bucket.s3.amazonaws.com/resized" }
+          );
 
-  //       const location = tinify.Source.fromBuffer("png file")
-  //         .resize({ width: 400 })
-  //         .store({ service: "s3" })
-  //         .location();
-  //       return location.then(function (location) {
-  //         assert.equal("https://bucket.s3.amazonaws.com/resized", location);
-  //       });
-  //     });
-  //   });
+        const location = tinify.Source.fromBuffer("png file")
+          .resize({ width: 400 })
+          .store({ service: "s3" })
+          .location();
+        return location.then(function (location) {
+          assert.equal("https://bucket.s3.amazonaws.com/resized", location);
+        });
+      });
+    });
 
-  //   describe("toBuffer", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("toBuffer", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location")
-  //         .reply(200, "compressed file");
-  //     });
+        nock("https://api.tinify.com")
+          .get("/some/location")
+          .reply(200, "compressed file");
+      });
 
-  //     it("should return image data", function () {
-  //       const data = tinify.Source.fromBuffer("png file").toBuffer();
-  //       return data.then(function (data) {
-  //         assert.equal("compressed file", data);
-  //       });
-  //     });
-  //   });
+      it("should return image data", function () {
+        const data = tinify.Source.fromBuffer("png file").toBuffer();
+        return data.then(function (data) {
+          assert.equal("compressed file", data);
+        });
+      });
+    });
 
-  //   describe("toFile", function () {
-  //     beforeEach(function () {
-  //       nock("https://api.tinify.com")
-  //         .post("/shrink")
-  //         .reply(201, {}, { location: "https://api.tinify.com/some/location" });
+    describe("toFile", function () {
+      beforeEach(function () {
+        nock("https://api.tinify.com")
+          .post("/shrink")
+          .reply(201, {}, { location: "https://api.tinify.com/some/location" });
 
-  //       nock("https://api.tinify.com")
-  //         .get("/some/location")
-  //         .reply(200, "compressed file");
-  //     });
+        nock("https://api.tinify.com")
+          .get("/some/location")
+          .reply(200, "compressed file");
+      });
 
-  //     it("should store image data", function () {
-  //       const file = tmp.fileSync();
-  //       const promise = tinify.Source.fromBuffer("png file").toFile(file.name);
-  //       return promise.then(function () {
-  //         assert.equal("compressed file", fs.readFileSync(file.name));
-  //       });
-  //     });
-  //   });
-  // });
+      it("should store image data", function () {
+        const file = tmp.fileSync();
+        const promise = tinify.Source.fromBuffer("png file").toFile(file.name);
+        return promise.then(function () {
+          assert.equal("compressed file", fs.readFileSync(file.name));
+        });
+      });
+    });
+  });
 });
